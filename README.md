@@ -2,19 +2,8 @@
 ## Preparation for к k8StarsWars
 ### Install kind
 
-kind create cluster --config universe-config.yml
-
-### create ingress
-```bash
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
 ```
-
-wait for ingress ready
-```bash
-kubectl wait --namespace ingress-nginx \
-  --for=condition=ready pod \
-  --selector=app.kubernetes.io/component=controller \
-  --timeout=90s
+kind create cluster --config universe-config.yml
 ```
 
 ## First clone
