@@ -1,0 +1,10 @@
+FROM golang:1.22.3-alpine3.18 as build
+COPY go.* .
+RUN go mod download
+COPY jedi jedi
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-w -s" -o /service ./jedi
+
+FROM gcr.io/distroless/static-debian12
+COPY --from=build /service /service
+COPY jedi/static jedi/static
+ENTRYPOINT [ "/service" ]
