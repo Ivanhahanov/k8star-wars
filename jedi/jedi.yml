@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jedi
+  labels:
+    person: jedi
+    class: alliance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      person: jedi
+      class: alliance
+  template:
+    metadata:
+      labels:
+        person: jedi
+        class: alliance
+    spec:
+      containers:
+      - name: jedi
+        image: explabs/k8star-wars-jedi
+        ports:
+        - containerPort: 80
+        env:
+          - name: HP
+            value: "100"
+          - name: "CLONE_PLATOON"
+            value: "http://clone-platoon"
+        resources:
+          limits:
+            cpu: "0.2"
+            memory: 20Mi
+          requests:
+            cpu: "0.1"
+            memory: 10Mi
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 3
+# --- 
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: clone-platoon
+# spec:
+#   selector:
+#     person: clone
+#     class: empire
+#   ports:
+#   - protocol: TCP
+#     port: 80
+#     targetPort: 80

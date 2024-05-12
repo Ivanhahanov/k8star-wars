@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: clone
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      person: clone
+      class: empire
+  template:
+    metadata:
+      labels:
+        person: clone
+        class: empire
+    spec:
+      containers:
+      - name: clone
+        image: explabs/k8star-wars-clone
+        ports:
+        - containerPort: 80

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clone
+  labels:
+    person: clone
+    landing: laat
+    class: empire
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      person: clone
+      landing: laat
+      class: empire
+  template:
+    metadata:
+      labels:
+        person: clone
+        landing: laat
+        class: empire
+    spec:
+      containers:
+      - name: clone
+        image: explabs/k8star-wars-clone
+        ports:
+        - containerPort: 80
+        env:
+          - name: HP
+            value: "100"
+          - name: ACCURANCY
+            value: "2"
+          - name: ARMOR
+            value: "1"
+        resources:
+          limits:
+            cpu: "0.2"
+            memory: 20Mi
+          requests:
+            cpu: "0.1"
+            memory: 10Mi
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 3

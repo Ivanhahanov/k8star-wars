@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: clone
+spec:
+  restartPolicy: Never
+  containers:
+  - name: clone
+    image: explabs/k8star-wars-clone
+    ports:
+    - containerPort: 80
