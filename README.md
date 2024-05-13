@@ -1,5 +1,5 @@
 # Welcome to k8StarWars
-## Preparation for к k8StarsWars
+## Preparation for k8StarsWars
 ### Install kind
 
 ```
@@ -107,7 +107,7 @@ kubectl apply -f supply-clones/squad.yml
 ```
 Command returns
 ```
-deployment.apps/clone configured
+deployment.apps/clone created
 ```
 
 Show Laat
